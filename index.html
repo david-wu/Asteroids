@@ -12,13 +12,24 @@
 
 
 <body>
-  <canvas width="500" height="500"></canvas>
+  <canvas ></canvas>
 
 
   <script>
     var canvas = document.getElementsByTagName("canvas")[0];
     // var object1 = new MovingObjects.MovingObject([10,10], [1,1], "black", 50);
-    var game = new App.Game(canvas.getContext("2d"));
+
+    canvas.width = window.innerWidth
+    canvas.height = window.innerHeight
+
+    App.Game.DIM_X = window.innerWidth
+    App.Game.DIM_Y = window.innerHeight
+
+    App.MovingObject.DIM_X = window.innerWidth
+    App.MovingObject.DIM_Y = window.innerHeight
+
+
+    var game = new App.Game(canvas.getContext("2d"), window);
     game.start();
   </script>
 
