@@ -76,10 +76,10 @@
 
   Game.prototype.bindKeyHandler = function () {
     var ship = this.ship
-    key('a', function(){ship.power([-1,0])});
-    key('d', function(){ship.power([1,0])});
-    key('w', function(){ship.power([0,-1])});
-    key('s', function(){ship.power([0,1])});
+    key('a', function(){ship.power([-0.25,0])});
+    key('d', function(){ship.power([0.25,0])});
+    key('w', function(){ship.power([0,-0.25])});
+    key('s', function(){ship.power([0,0.25])});
     key('space', function(){ship.useEvade()});
   }
 
