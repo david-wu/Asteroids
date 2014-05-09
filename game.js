@@ -29,27 +29,23 @@
   Game.prototype.draw = function () {
     this.ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
 
-
+    //draw asteroids, then score/evades, then ship
     for (var i = 0; i < this.asteroids.length; i++) {
       this.asteroids[i].draw(this.ctx);
     }
+    this.ctx.font="20px Georgia";
+    this.ctx.fillStyle='blue';
+    this.ctx.fillText(""+(Math.floor(this.stepCount/10)),10,50);
+    this.ctx.font="20px Georgia";
+    if (this.ship.evade > 0){
+      this.ctx.fillStyle='green';
+      this.ctx.fillText(""+(Math.floor(this.ship.evade)),Game.DIM_X-50, 50);
+    }else{
+      this.ctx.fillStyle='orange';
+      this.ctx.fillText(""+(Math.floor(this.ship.evade_count)),Game.DIM_X-50, 50);
+    }
 
     this.ship.draw(this.ctx);
-  }
-
-  Game.prototype.move = function () {
-    this.ship.move();
-    for (var i = 0; i < this.asteroids.length; i++) {
-      this.asteroids[i].move();
-    }
-  }
-
-  Game.prototype.step = function () {
-    this.stepCount += 1;
-    this.checkCollision();
-    this.draw();
-    this.move();
-
   }
 
   Game.prototype.checkCollision = function () {
@@ -58,13 +54,52 @@
     for (var i = 0; i < this.asteroids.length; i++){
       if ((this.ship.evade === 0) && this.asteroids[i].isCollidedWith(this.ship)) {
         this.draw();
-        alert('You Died');
+        // alert('You Died');
 
-        this.asteroids = []
+        this.ship.rad *= 0.99
+        if (this.ship.rad < 2){
+          this.ship.rad = -1;
+        }
+
+        // this.asteroids = []
       }
     }
 
   }
+
+  Game.prototype.move = function () {
+    this.ship.power();
+    this.ship.move();
+    for (var i = 0; i < this.asteroids.length; i++) {
+      this.asteroids[i].move();
+    }
+  }
+
+  Game.prototype.step = function () {
+    this.stepCount += 1;
+    this.draw();
+    this.checkCollision();
+    this.move();
+    for (var i = 0; i < this.asteroids.length; i++) {
+      var asteroid = this.asteroids[i]
+
+      if (asteroid.rad < 500){
+        asteroid.rad+=0.25;
+      }
+      // var asteroidSpeed = Math.pow(asteroid.vel[0],2) + Math.pow(asteroid.vel[1],2)
+      // if (asteroidSpeed < 10){
+      //   asteroid.vel[0] = asteroid.vel[0] * (1.01);
+      //   asteroid.vel[1] = asteroid.vel[1] * (1.01);
+      //   console.log(asteroidSpeed);
+      // }
+    }
+    //this.ship.rad += 0.01
+
+
+
+  }
+
+
 
   Game.prototype.start = function () {
     game = this;
@@ -76,11 +111,42 @@
 
   Game.prototype.bindKeyHandler = function () {
     var ship = this.ship
-    key('a', function(){ship.power([-0.25,0])});
-    key('d', function(){ship.power([0.25,0])});
-    key('w', function(){ship.power([0,-0.25])});
-    key('s', function(){ship.power([0,0.25])});
+
     key('space', function(){ship.useEvade()});
+    $(window).keydown(function(key){
+      console.log(key.keyCode);
+      switch(key.keyCode){
+      case 37:
+        ship.left_key_pressed = 1;
+        break;
+      case 38:
+        ship.up_key_pressed = 1;
+        break;
+      case 39:
+        ship.right_key_pressed = 1;
+        break;
+      case 40:
+        ship.down_key_pressed = 1;
+        break;
+      }
+    })
+    $(window).keyup(function(key){
+      console.log(key.keyCode);
+      switch(key.keyCode){
+      case 37:
+        ship.left_key_pressed = 0;
+        break;
+      case 38:
+        ship.up_key_pressed = 0;
+        break;
+      case 39:
+        ship.right_key_pressed = 0;
+        break;
+      case 40:
+        ship.down_key_pressed = 0;
+        break;
+      }
+    })
   }
 
 

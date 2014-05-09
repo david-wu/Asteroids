@@ -2,6 +2,7 @@ Function.prototype.inherits = function (superClass) {
   function Surrogate () {};
   Surrogate.prototype = superClass.prototype;
   this.prototype = new Surrogate();
+
 };
 
 (function (root) {
@@ -13,6 +14,11 @@ Function.prototype.inherits = function (superClass) {
     color = Ship.COLOR;
     rad = Ship.RADIUS;
 
+    this.up_key_pressed = 0;
+    this.down_key_pressed = 0;
+    this.left_key_pressed = 0;
+    this.right_key_pressed = 0;
+
     //keeps track of temporary invulnerability
     this.evade_count = 3
     this.evade = 150;
@@ -21,7 +27,7 @@ Function.prototype.inherits = function (superClass) {
   }
 
   Ship.inherits(MovingObject);
-  Ship.RADIUS = 10;
+  Ship.RADIUS = 300;
   Ship.COLOR = "red";
 
   Ship.prototype.useEvade = function (){
@@ -58,8 +64,25 @@ Function.prototype.inherits = function (superClass) {
 
 
   Ship.prototype.power = function (impulse) {
-    this.vel[0] += impulse[0];
-    this.vel[1] += impulse[1];
+    var accel = [];
+    accel[0] = 0;
+    accel[1] = 0;
+
+    if(this.left_key_pressed){
+      accel[0] += -0.1
+    }
+    if(this.right_key_pressed){
+      accel[0] += 0.1
+    }
+    if(this.up_key_pressed){
+      accel[1] += -0.1
+    }
+    if(this.down_key_pressed){
+      accel[1] += +0.1
+    }
+
+    this.vel[0] += accel[0];
+    this.vel[1] += accel[1];
   }
 
 

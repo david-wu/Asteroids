@@ -6,6 +6,7 @@
   <script src="game.js"></script>
   <script src="ship.js"></script>
   <script src="keymaster.js"></script>
+  <script src="jquery.js"></script>
 
   <!-- // <script src="asteroid.js"></script> -->
 </head>
@@ -19,14 +20,14 @@
     var canvas = document.getElementsByTagName("canvas")[0];
     // var object1 = new MovingObjects.MovingObject([10,10], [1,1], "black", 50);
 
-    canvas.width = window.innerWidth
-    canvas.height = window.innerHeight
+    canvas.width = window.innerWidth-100
+    canvas.height = window.innerHeight-100
 
-    App.Game.DIM_X = window.innerWidth
-    App.Game.DIM_Y = window.innerHeight
+    App.Game.DIM_X = window.innerWidth-100
+    App.Game.DIM_Y = window.innerHeight-100
 
-    App.MovingObject.DIM_X = window.innerWidth
-    App.MovingObject.DIM_Y = window.innerHeight
+    App.MovingObject.DIM_X = window.innerWidth-100
+    App.MovingObject.DIM_Y = window.innerHeight-100
 
 
     var game = new App.Game(canvas.getContext("2d"), window);
