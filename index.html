@@ -5,29 +5,27 @@
   <script src="asteroid.js"></script>
   <script src="game.js"></script>
   <script src="ship.js"></script>
-  <script src="keymaster.js"></script>
   <script src="jquery.js"></script>
-
-  <!-- // <script src="asteroid.js"></script> -->
 </head>
 
+<style>
+body {
+  overflow: hidden;
+}
+
+</style>
 
 <body>
   <canvas tabindex="1"></canvas>
 
 
   <script>
-    var canvas = document.getElementsByTagName("canvas")[0];
-    // var object1 = new MovingObjects.MovingObject([10,10], [1,1], "black", 50);
+    var canvas = $('canvas')[0]
 
-    canvas.width = window.innerWidth-100
-    canvas.height = window.innerHeight-100
-
-    App.Game.DIM_X = window.innerWidth-100
-    App.Game.DIM_Y = window.innerHeight-100
-
-    App.MovingObject.DIM_X = window.innerWidth-100
-    App.MovingObject.DIM_Y = window.innerHeight-100
+    canvas.width = window.innerWidth
+    canvas.height = window.innerHeight
+    App.DIM_X = canvas.width
+    App.DIM_Y = canvas.height
 
 
     var game = new App.Game(canvas.getContext("2d"), window);

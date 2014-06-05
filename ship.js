@@ -1,10 +1,3 @@
-Function.prototype.inherits = function (superClass) {
-  function Surrogate () {};
-  Surrogate.prototype = superClass.prototype;
-  this.prototype = new Surrogate();
-
-};
-
 (function (root) {
 
   var App = root.App = (root.App || {});
@@ -27,7 +20,7 @@ Function.prototype.inherits = function (superClass) {
   }
 
   Ship.inherits(MovingObject);
-  Ship.RADIUS = 300;
+  Ship.RADIUS = 15;
   Ship.COLOR = "red";
 
   Ship.prototype.useEvade = function (){
@@ -48,8 +41,6 @@ Function.prototype.inherits = function (superClass) {
 
     ctx.fillStyle = this.color;
     ctx.beginPath();
-
-
     ctx.arc(
       this.pos[0],
       this.pos[1],
@@ -61,7 +52,6 @@ Function.prototype.inherits = function (superClass) {
 
     ctx.fill();
   }
-
 
   Ship.prototype.power = function (impulse) {
     var accel = [];
@@ -84,9 +74,5 @@ Function.prototype.inherits = function (superClass) {
     this.vel[0] += accel[0];
     this.vel[1] += accel[1];
   }
-
-
-
-
 
 })(this);

@@ -23,20 +23,22 @@ Function.prototype.inherits = function (superClass) {
   Asteroid.randomVec = function () {
     var x = Math.floor(Math.random() * Asteroid.SPEED) - (Asteroid.SPEED/2);
     var y = Math.floor(Math.random() * Asteroid.SPEED) - (Asteroid.SPEED/2);
+
+    // reroll until speed is high enough
+    if(Math.pow(Math.pow(x,2) + Math.pow(y,2), 0.5) < 3){
+      return Asteroid.randomVec();
+    }
     return [x, y];
   }
 
   Asteroid.randomAsteroid = function (dimX, dimY) {
+
     var x = Math.floor(Math.random() * dimX);
     var y = Math.floor(Math.random() * dimY);
     return new Asteroid([x,y], this.randomVec() )
   }
 
-
-
-
-}
-)(this);
+})(this);
 
 
 
