@@ -29,7 +29,7 @@
     this.move();
     for (var i = 0; i < this.asteroids.length; i++) {
       var asteroid = this.asteroids[i]
-      if (asteroid.rad < 100){
+      if (asteroid.rad < 200){
         asteroid.rad += 0.25;
       }
     }
